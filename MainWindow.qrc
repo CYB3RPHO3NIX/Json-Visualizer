@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/file_24px.png</file>
+        <file>icons/icons8_about_24px.png</file>
+        <file>icons/icons8_base_64_24px.png</file>
+        <file>icons/icons8_check_all_24px.png</file>
+        <file>icons/icons8_collapse_24px.png</file>
+        <file>icons/icons8_collapse_arrow_24px.png</file>
+        <file>icons/icons8_copy_24px.png</file>
+        <file>icons/icons8_csv_24px.png</file>
+        <file>icons/icons8_cut_24px.png</file>
+        <file>icons/icons8_delete_24px.png</file>
+        <file>icons/icons8_diff_files_24px.png</file>
+        <file>icons/icons8_documents_folder_24px_1.png</file>
+        <file>icons/icons8_exit_24px.png</file>
+        <file>icons/icons8_expand_arrow_24px.png</file>
+        <file>icons/icons8_hierarchy_48px.png</file>
+        <file>icons/icons8_link_24px.png</file>
+        <file>icons/icons8_opened_folder_24px.png</file>
+        <file>icons/icons8_paste_24px.png</file>
+        <file>icons/icons8_print_24px.png</file>
+        <file>icons/icons8_redo_24px.png</file>
+        <file>icons/icons8_replace_24px.png</file>
+        <file>icons/icons8_save_24px.png</file>
+        <file>icons/icons8_save_as_24px.png</file>
+        <file>icons/icons8_search_24px.png</file>
+        <file>icons/icons8_settings_24px.png</file>
+        <file>icons/icons8_summary_list_24px.png</file>
+        <file>icons/icons8_tab_mac_48px.png</file>
+        <file>icons/icons8_time_machine_24px.png</file>
+        <file>icons/icons8_undo_24px.png</file>
+        <file>icons/icons8_word_wrap_24px.png</file>
+        <file>icons/icons8_xml_file_24px.png</file>
+        <file>icons/icons8_zoom_in_24px.png</file>
+        <file>icons/icons8_zoom_out_24px.png</file>
+        <file>icons/icons8_zoom_to_actual_size_24px.png</file>
+    </qresource>
+</RCC>
