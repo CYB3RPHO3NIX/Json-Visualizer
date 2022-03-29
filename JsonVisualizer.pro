@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     JsonSummary.cpp \
     JsonWorker.cpp \
+    jsonsummarydialog.cpp \
     main.cpp \
     MainWindow.cpp \
     qjsonmodel.cpp \
@@ -20,11 +21,13 @@ HEADERS += \
     JsonSummary.h \
     JsonWorker.h \
     MainWindow.h \
+    jsonsummarydialog.h \
     qjsonmodel.h \
     simdjson.h
 
 FORMS += \
-    MainWindow.ui
+    MainWindow.ui \
+    jsonsummarydialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

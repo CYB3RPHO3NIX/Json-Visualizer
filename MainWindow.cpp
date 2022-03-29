@@ -1,5 +1,8 @@
 #include "MainWindow.h"
-#include "JsonWorker.h"
+
+#include "jsonsummarydialog.h"
+#include <QMessageBox>
+
 #include<chrono>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -13,24 +16,22 @@ void MainWindow::setStatus(const char* statusString)
 
 void MainWindow::on_plainTextEdit_textChanged()
 {
-    JsonWorker worker;
     QString jsonString = ui.plainTextEdit->toPlainText();
-    QJsonModel* treeModel = new QJsonModel();
+    treeModel = new QJsonModel();
     ui.treeView->setModel(treeModel);
     if (worker.IsValid(jsonString))
     {
+        IsCurrentJsonValid = true;
         setStatus("Valid Json");
         worker.GenerateTreeView(jsonString, treeModel);
         summary = treeModel->getJsonSummary();
         summary.setMD5_Hash(jsonString);
         summary.setSHA256_Hash(jsonString);
         summary.setSHA512_Hash(jsonString);
-        auto md5hash = summary.getMD5_Hash();
-        auto sha256 = summary.getSHA256_Hash();
-        auto sha512 = summary.getSHA512_Hash();
     }
     else
     {
+        IsCurrentJsonValid = false;
         setStatus("Invalid Json");
     }
     ui.treeView->show();
@@ -44,3 +45,22 @@ void MainWindow::on_actionZoom_Out_triggered()
 {
     ui.plainTextEdit->zoomOut();
 }
+
+void MainWindow::on_actionSummary_triggered()
+{
+    QString jsonString = ui.plainTextEdit->toPlainText();
+    if(worker.IsValid(jsonString))
+    {
+        JsonSummaryDialog dialog;
+        dialog.SetData(summary);
+        dialog.exec();
+    }else
+    {
+        QMessageBox msg;
+        msg.setIcon(QMessageBox::Critical);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.setText("JSON is invalid and cannot be processed.");
+        msg.exec();
+    }
+}
+
