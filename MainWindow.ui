@@ -18,7 +18,14 @@
     <normaloff>:/icons/icons8_hierarchy_48px.png</normaloff>:/icons/icons8_hierarchy_48px.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLineEdit" name="txtJsonQuery">
+      <property name="placeholderText">
+       <string>Type your JMESPath query here.</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
@@ -58,7 +65,7 @@
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
