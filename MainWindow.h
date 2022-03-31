@@ -13,11 +13,13 @@ public:
     MainWindow(QWidget *parent = Q_NULLPTR);
     
 private:
+    QString fileName;
     Ui::MainWindowClass ui;
     JsonSummary summary;
     JsonWorker worker;
     bool IsCurrentJsonValid;
     QJsonModel* treeModel;
+    QString currentJson;
 
     //functions
     void DrawTreeView(QString &jsonString);

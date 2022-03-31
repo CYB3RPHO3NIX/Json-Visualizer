@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2022-03-31T21:09:13. -->
+<!-- Written by QtCreator 6.0.2, 2022-03-31T23:45:46. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -247,6 +247,7 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">H:/Projects/Json Visualizer/build-JsonVisualizer-Desktop_Qt_5_12_12_MSVC2015_64bit-Debug</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

@@ -1,9 +1,9 @@
 #include "MainWindow.h"
-
 #include "jsonsummarydialog.h"
 #include <QMessageBox>
 #include <QTextStream>
 #include <QFileDialog>
+#include <QtNetwork/QNetworkAccessManager>
 
 #include<chrono>
 
@@ -25,11 +25,13 @@ void MainWindow::DrawTreeView(QString &jsonString)
 {
     treeModel = new QJsonModel();
     ui.treeView->setModel(treeModel);
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     if (worker.IsValid(jsonString))
     {
         IsCurrentJsonValid = true;
         setStatus("Valid Json");
         worker.GenerateTreeView(jsonString, treeModel);
+        QApplication::restoreOverrideCursor();
         summary = treeModel->getJsonSummary();
         summary.setMD5_Hash(jsonString);
         summary.setSHA256_Hash(jsonString);
@@ -94,15 +96,23 @@ void MainWindow::loadFile(QString &filename)
     }
     QTextStream inputStream(&file);
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    ui.plainTextEdit->setPlainText(inputStream.readAll());
+    currentJson = inputStream.readAll();
+    ui.plainTextEdit->setPlainText(currentJson);
     QApplication::restoreOverrideCursor();
-    statusBar()->showMessage(tr("File loaded"), 2000);
+    ui.statusBar->showMessage(tr("File loaded"), 2000);
 }
 
 void MainWindow::on_actionBrowse_File_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Select json file.", "/", "Json files (*.json)");
-        if (!fileName.isEmpty())
-            loadFile(fileName);
+    if (!fileName.isEmpty())
+    {
+        //QNetworkAccessManager manager;
+        //manager.get("") -->need to code this next day.
+        QFileInfo info(fileName);
+        this->setWindowTitle("JSON Explorer - " + info.fileName());
+        loadFile(fileName);
+    }
 }
+
 
