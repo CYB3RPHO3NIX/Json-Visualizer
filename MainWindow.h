@@ -18,12 +18,18 @@ private:
     JsonWorker worker;
     bool IsCurrentJsonValid;
     QJsonModel* treeModel;
-private slots:
+
+    //functions
     void DrawTreeView(QString &jsonString);
     void setStatus(const char* statusString);
+    void loadURL(QString &url);
+    void loadFile(QString &filename);
+    void saveFile(QString &filename);
+private slots:
     void on_plainTextEdit_textChanged();
     void on_actionZoom_In_triggered();
     void on_actionZoom_Out_triggered();
     void on_actionSummary_triggered();
     void on_txtJsonQuery_textChanged(const QString &arg1);
+    void on_actionBrowse_File_triggered();
 };

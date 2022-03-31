@@ -146,12 +146,6 @@
     <addaction name="actionMinify_Json"/>
     <addaction name="menuConvert_To"/>
    </widget>
-   <widget class="QMenu" name="menuSettings">
-    <property name="title">
-     <string>Settings</string>
-    </property>
-    <addaction name="actionPreference"/>
-   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
@@ -162,7 +156,6 @@
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menuFormat"/>
-   <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -470,15 +463,6 @@
    </property>
    <property name="toolTip">
     <string>Convert to Base64</string>
-   </property>
-  </action>
-  <action name="actionPreference">
-   <property name="icon">
-    <iconset resource="MainWindow.qrc">
-     <normaloff>:/icons/icons/icons8_settings_24px.png</normaloff>:/icons/icons/icons8_settings_24px.png</iconset>
-   </property>
-   <property name="text">
-    <string>Preference</string>
    </property>
   </action>
   <action name="actionAbout_Json_Explorer">

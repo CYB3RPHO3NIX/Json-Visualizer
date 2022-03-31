@@ -2,6 +2,8 @@
 
 #include "jsonsummarydialog.h"
 #include <QMessageBox>
+#include <QTextStream>
+#include <QFileDialog>
 
 #include<chrono>
 
@@ -78,5 +80,29 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
         DrawTreeView(filtered);
         ui.treeView->expandAll();
     }
+}
+void MainWindow::loadFile(QString &filename)
+{
+    QFile file(filename);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this, tr("Read Error"),
+                                     tr("Cannot read file %1:\n%2.")
+                                     .arg(filename)
+                                     .arg(file.errorString()));
+        return;
+    }
+    QTextStream inputStream(&file);
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    ui.plainTextEdit->setPlainText(inputStream.readAll());
+    QApplication::restoreOverrideCursor();
+    statusBar()->showMessage(tr("File loaded"), 2000);
+}
+
+void MainWindow::on_actionBrowse_File_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Select json file.", "/", "Json files (*.json)");
+        if (!fileName.isEmpty())
+            loadFile(fileName);
 }
 
