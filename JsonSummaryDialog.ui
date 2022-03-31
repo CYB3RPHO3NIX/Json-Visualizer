@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1173</width>
+    <width>473</width>
     <height>309</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>JSON Summary</string>
@@ -16,6 +22,12 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Total Number of</string>
      </property>
@@ -24,6 +36,17 @@
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="3">
          <widget class="QLabel" name="txtArrays">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>256</string>
           </property>
@@ -31,8 +54,15 @@
         </item>
         <item row="0" column="4">
          <widget class="QLabel" name="lblStrings">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -43,8 +73,15 @@
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="lblArrays">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -55,8 +92,15 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="lblObjects">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -67,6 +111,17 @@
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="txtObjects">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>128</string>
           </property>
@@ -74,6 +129,17 @@
         </item>
         <item row="0" column="5">
          <widget class="QLabel" name="txtStrings">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>512</string>
           </property>
@@ -81,8 +147,15 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="lblNumbers">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -93,6 +166,11 @@
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="txtNumbers">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>8</string>
           </property>
@@ -102,6 +180,7 @@
          <widget class="QLabel" name="lblNulls">
           <property name="font">
            <font>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -112,6 +191,11 @@
         </item>
         <item row="1" column="3">
          <widget class="QLabel" name="txtNulls">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>64</string>
           </property>
@@ -119,8 +203,15 @@
         </item>
         <item row="1" column="4">
          <widget class="QLabel" name="lblBooleans">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -131,6 +222,11 @@
         </item>
         <item row="1" column="5">
          <widget class="QLabel" name="txtBooleans">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>16</string>
           </property>
@@ -143,6 +239,12 @@
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Hash</string>
      </property>
@@ -151,6 +253,24 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="2" column="0">
          <widget class="QLabel" name="lblSHA512Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <bold>true</bold>
@@ -163,6 +283,24 @@
         </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="btnCopyMD5Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>34</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>34</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Copy to Clipboard</string>
           </property>
@@ -177,6 +315,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="lblSHA256Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <bold>true</bold>
@@ -189,6 +345,24 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="lblMD5Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <bold>true</bold>
@@ -201,6 +375,24 @@
         </item>
         <item row="2" column="2">
          <widget class="QPushButton" name="btnCopySHA512Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>34</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>34</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Copy to Clipboard</string>
           </property>
@@ -215,6 +407,24 @@
         </item>
         <item row="1" column="2">
          <widget class="QPushButton" name="btnCopySHA256Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>34</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>34</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Copy to Clipboard</string>
           </property>
@@ -229,8 +439,31 @@
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="txtMD5Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+           </font>
+          </property>
           <property name="text">
-           <string>b10a8db164e0754105b7a99be72e3fe5</string>
+           <string/>
           </property>
           <property name="textFormat">
            <enum>Qt::PlainText</enum>
@@ -242,8 +475,31 @@
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="txtSHA256Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+           </font>
+          </property>
           <property name="text">
-           <string>a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e</string>
+           <string/>
           </property>
           <property name="textFormat">
            <enum>Qt::PlainText</enum>
@@ -255,8 +511,31 @@
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="txtSHA512Hash">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+           </font>
+          </property>
           <property name="text">
-           <string>2c74fd17edafd80e8447b0d46741ee243b7eb74dd2149a0ab1b9246fb30382f27e853d8585719e0e67cbda0daa8f51671064615d645ae27acb15bfb1447f459b</string>
+           <string/>
           </property>
           <property name="textFormat">
            <enum>Qt::PlainText</enum>
@@ -280,6 +559,9 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
@@ -290,6 +572,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>OK</string>
          </property>
