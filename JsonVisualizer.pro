@@ -21,6 +21,15 @@ HEADERS += \
     JsonSummary.h \
     JsonWorker.h \
     MainWindow.h \
+    jsoncons/json.hpp \
+    jsoncons_ext/jsonpath/expression.hpp \
+    jsoncons_ext/jsonpath/flatten.hpp \
+    jsoncons_ext/jsonpath/json_location.hpp \
+    jsoncons_ext/jsonpath/json_query.hpp \
+    jsoncons_ext/jsonpath/jsonpath.hpp \
+    jsoncons_ext/jsonpath/jsonpath_error.hpp \
+    jsoncons_ext/jsonpath/jsonpath_expression.hpp \
+    jsoncons_ext/jsonpath/jsonpath_selector.hpp \
     jsonsummarydialog.h \
     qjsonmodel.h \
     simdjson.h

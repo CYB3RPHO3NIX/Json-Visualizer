@@ -22,7 +22,7 @@
     <item>
      <widget class="QLineEdit" name="txtJsonQuery">
       <property name="placeholderText">
-       <string>Type your JMESPath query here.</string>
+       <string>Type your JsonPath query here.</string>
       </property>
      </widget>
     </item>

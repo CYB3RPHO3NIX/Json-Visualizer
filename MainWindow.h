@@ -19,9 +19,11 @@ private:
     bool IsCurrentJsonValid;
     QJsonModel* treeModel;
 private slots:
+    void DrawTreeView(QString &jsonString);
+    void setStatus(const char* statusString);
     void on_plainTextEdit_textChanged();
     void on_actionZoom_In_triggered();
     void on_actionZoom_Out_triggered();
-    void setStatus(const char* statusString);
     void on_actionSummary_triggered();
+    void on_txtJsonQuery_textChanged(const QString &arg1);
 };

@@ -17,6 +17,10 @@ void MainWindow::setStatus(const char* statusString)
 void MainWindow::on_plainTextEdit_textChanged()
 {
     QString jsonString = ui.plainTextEdit->toPlainText();
+    DrawTreeView(jsonString);
+}
+void MainWindow::DrawTreeView(QString &jsonString)
+{
     treeModel = new QJsonModel();
     ui.treeView->setModel(treeModel);
     if (worker.IsValid(jsonString))
@@ -36,6 +40,7 @@ void MainWindow::on_plainTextEdit_textChanged()
     }
     ui.treeView->show();
 }
+
 void MainWindow::on_actionZoom_In_triggered()
 {
     ui.plainTextEdit->zoomIn();
@@ -61,6 +66,17 @@ void MainWindow::on_actionSummary_triggered()
         msg.setDefaultButton(QMessageBox::Ok);
         msg.setText("JSON is invalid and cannot be processed.");
         msg.exec();
+    }
+}
+
+
+void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
+{
+    QString filtered = worker.QueryJson(ui.plainTextEdit->toPlainText(), queryString);
+    if(filtered != "")
+    {
+        DrawTreeView(filtered);
+        ui.treeView->expandAll();
     }
 }
 
