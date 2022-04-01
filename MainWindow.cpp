@@ -5,8 +5,6 @@
 #include <QFileDialog>
 #include <QtNetwork/QNetworkAccessManager>
 
-#include<chrono>
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
@@ -76,12 +74,19 @@ void MainWindow::on_actionSummary_triggered()
 
 void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 {
-    QString filtered = worker.QueryJson(ui.plainTextEdit->toPlainText(), queryString);
-    if(filtered != "")
+    if(queryString != "")
     {
-        DrawTreeView(filtered);
-        ui.treeView->expandAll();
+        QString filtered = worker.QueryJson(ui.plainTextEdit->toPlainText(), queryString);
+        if(filtered != "")
+        {
+            DrawTreeView(filtered);
+            ui.treeView->expandAll();
+        }
+    }else
+    {
+
     }
+
 }
 void MainWindow::loadFile(QString &filename)
 {
