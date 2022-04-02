@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QApplication>
+#include <JsonWorker.h>
 class File
 {
 public:
@@ -14,7 +15,10 @@ public:
     QFile file;
     QFileInfo fileInfo;
     QString jsonData;
+    bool IsValidJson = false;
     bool IsSaved = false;
+
+    JsonWorker worker;
     //Functions
     File();
     void LoadFile(QWidget* parent);
@@ -23,7 +27,9 @@ public:
     void SaveAs(QWidget* parent);
     void saveFile(QWidget* parent,const QString &fileName);
     void setJsonData(QString data);
+    void validateJson();
     QString* getJsonData();
+
 };
 
 #endif // FILE_H

@@ -34,5 +34,6 @@
         <file>icons/icons8_zoom_in_24px.png</file>
         <file>icons/icons8_zoom_out_24px.png</file>
         <file>icons/icons8_zoom_to_actual_size_24px.png</file>
+        <file>icons/icons8_close_window_24px.png</file>
     </qresource>
 </RCC>

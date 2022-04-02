@@ -2,14 +2,43 @@
 
 File::File()
 {
-
 }
-
+void File::validateJson()
+{
+    if(worker.IsValid(jsonData))
+    {
+        IsValidJson = true;
+    }else
+    {
+        IsValidJson = false;
+    }
+}
 void File::NewFile(QWidget* parent)
 {
     IsSaved = false;
     QString fileName = "Untitled.json";
-    //this part needs to be coded next day. Good Night
+    jsonData = "";
+    //check if there is any file that is currently loaded.
+    if(file.isOpen())
+    {
+        //check if that loaded file is saved or not.
+        if(IsSaved)
+        {
+            file.close();
+
+        }else
+        {
+            //show a user prompt to ask whether to save the changes or not.
+            //then unload.
+            //then load a new file.
+
+        }
+    }
+    else
+    {
+        //load a new File.
+    }
+    //call the validate function.
 }
 void File::Save(QWidget* parent)
 {
@@ -69,6 +98,7 @@ void File::LoadFile(QWidget* parent)
         QTextStream inputStream(&file);
         QApplication::setOverrideCursor(Qt::WaitCursor);
         jsonData = inputStream.readAll();
+        validateJson();
         QApplication::restoreOverrideCursor();
     }
 }

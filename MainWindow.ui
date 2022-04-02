@@ -21,6 +21,9 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLineEdit" name="txtJsonQuery">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="placeholderText">
        <string>Type your JsonPath query here.</string>
       </property>
@@ -33,7 +36,7 @@
       </property>
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="font">
         <font>
@@ -42,6 +45,9 @@
        </property>
       </widget>
       <widget class="QTreeView" name="treeView">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
@@ -102,6 +108,7 @@
     <addaction name="actionPrint"/>
     <addaction name="actionRecent_Files"/>
     <addaction name="separator"/>
+    <addaction name="actionClose_File"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
@@ -439,6 +446,9 @@
    </property>
   </action>
   <action name="actionXML">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="MainWindow.qrc">
      <normaloff>:/icons/icons/icons8_xml_file_24px.png</normaloff>:/icons/icons/icons8_xml_file_24px.png</iconset>
@@ -481,6 +491,11 @@
    </property>
    <property name="text">
     <string>About Json Explorer</string>
+   </property>
+  </action>
+  <action name="actionClose_File">
+   <property name="text">
+    <string>Close</string>
    </property>
   </action>
  </widget>
