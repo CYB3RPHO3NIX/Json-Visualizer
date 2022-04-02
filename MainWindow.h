@@ -4,6 +4,7 @@
 #include "ui_MainWindow.h"
 #include "JsonSummary.h"
 #include "JsonWorker.h"
+#include "File.h"
 
 class MainWindow : public QMainWindow
 {
@@ -14,19 +15,16 @@ public:
     
 private:
     Ui::MainWindowClass ui;
-    QFile currentFile;
-    QString currentJson;    //actual json data.
-    QString fileName;       //fully qualified filename.
+    File currentFile;
     JsonSummary summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
-    bool IsCurrentJsonValid;
     QJsonModel* treeModel;
 
     //functions
     void DrawTreeView(QString &jsonString);
     void setStatus(const char* statusString);
     void loadURL(QString &url);
-    void loadFile(QString &filename);
+    void loadFile();
     void saveFile(QString &filename);
 private slots:
     void on_plainTextEdit_textChanged();

@@ -16,30 +16,31 @@ void MainWindow::setStatus(const char* statusString)
 
 void MainWindow::on_plainTextEdit_textChanged()
 {
-    QString jsonString = ui.plainTextEdit->toPlainText();
-    DrawTreeView(jsonString);
+    currentFile.jsonData = ui.plainTextEdit->toPlainText();
+    currentFile.IsSaved = false;
+    if(currentFile.IsValidJson)
+    {
+        DrawTreeView(currentFile.jsonData);
+        setStatus("Valid Json");
+    }else
+    {
+        setStatus("Invalid Json");
+    }
 }
 void MainWindow::DrawTreeView(QString &jsonString)
 {
     treeModel = new QJsonModel();
     ui.treeView->setModel(treeModel);
+
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    if (worker.IsValid(jsonString))
-    {
-        IsCurrentJsonValid = true;
-        setStatus("Valid Json");
-        worker.GenerateTreeView(jsonString, treeModel);
-        QApplication::restoreOverrideCursor();
-        summary = treeModel->getJsonSummary();
-        summary.setMD5_Hash(jsonString);
-        summary.setSHA256_Hash(jsonString);
-        summary.setSHA512_Hash(jsonString);
-    }
-    else
-    {
-        IsCurrentJsonValid = false;
-        setStatus("Invalid Json");
-    }
+    worker.GenerateTreeView(jsonString, treeModel);
+    QApplication::restoreOverrideCursor();
+
+    summary = treeModel->getJsonSummary();
+    summary.setMD5_Hash(jsonString);
+    summary.setSHA256_Hash(jsonString);
+    summary.setSHA512_Hash(jsonString);
+
     ui.treeView->show();
 }
 
@@ -76,7 +77,7 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 {
     if(queryString != "")
     {
-        QString filtered = worker.QueryJson(ui.plainTextEdit->toPlainText(), queryString);
+        QString filtered = worker.QueryJson(currentFile.jsonData, queryString);
         if(filtered != "")
         {
             DrawTreeView(filtered);
@@ -88,36 +89,15 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
     }
 
 }
-void MainWindow::loadFile(QString &filename)
+void MainWindow::loadFile()
 {
-    QFile file(filename);
-    if(!file.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, tr("Read Error"),
-                                     tr("Cannot read file %1:\n%2.")
-                                     .arg(filename)
-                                     .arg(file.errorString()));
-        return;
-    }
-    QTextStream inputStream(&file);
-    QApplication::setOverrideCursor(Qt::WaitCursor);
-    currentJson = inputStream.readAll();
-    ui.plainTextEdit->setPlainText(currentJson);
-    QApplication::restoreOverrideCursor();
+    currentFile.LoadFile(this);
     ui.statusBar->showMessage(tr("File loaded"), 2000);
 }
 
 void MainWindow::on_actionBrowse_File_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Select json file.", "/", "Json files (*.json)");
-    if (!fileName.isEmpty())
-    {
-        //QNetworkAccessManager manager;
-        //manager.get("") -->need to code this next day.
-        QFileInfo info(fileName);
-        this->setWindowTitle("JSON Explorer - " + info.fileName());
-        loadFile(fileName);
-    }
+    loadFile();
 }
 
 
