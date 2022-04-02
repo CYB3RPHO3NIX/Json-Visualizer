@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-#include "jsonsummarydialog.h"
+#include "JsonSummaryDialog.h"
 #include <QMessageBox>
 #include <QTextStream>
 #include <QFileDialog>

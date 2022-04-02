@@ -13,7 +13,7 @@ SOURCES += \
     File.cpp \
     JsonSummary.cpp \
     JsonWorker.cpp \
-    jsonsummarydialog.cpp \
+    JsonSummaryDialog.cpp \
     main.cpp \
     MainWindow.cpp \
     qjsonmodel.cpp \
@@ -33,13 +33,13 @@ HEADERS += \
     jsoncons_ext/jsonpath/jsonpath_error.hpp \
     jsoncons_ext/jsonpath/jsonpath_expression.hpp \
     jsoncons_ext/jsonpath/jsonpath_selector.hpp \
-    jsonsummarydialog.h \
+    JsonSummaryDialog.h \
     qjsonmodel.h \
     simdjson.h
 
 FORMS += \
     MainWindow.ui \
-    jsonsummarydialog.ui
+    JsonSummaryDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
