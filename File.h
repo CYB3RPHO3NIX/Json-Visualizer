@@ -8,6 +8,7 @@
 #include <QTextStream>
 #include <QApplication>
 #include <JsonWorker.h>
+
 class File
 {
 public:
@@ -25,10 +26,16 @@ public:
     void NewFile(QWidget* parent);
     void Save(QWidget* parent);
     void SaveAs(QWidget* parent);
-    void saveFile(QWidget* parent,const QString &fileName);
+    void LoadURL(QWidget* parent);
+    void OpenContainingFolder(QWidget* parent);
+    void Close(QWidget* parent);
+
+    void updateFileInfo();
+    void saveFile(QWidget* parent);
     void setJsonData(QString data);
     void validateJson();
     QString* getJsonData();
+    void discardChanges();
 
 };
 

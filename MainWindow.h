@@ -33,4 +33,6 @@ private slots:
     void on_actionSummary_triggered();
     void on_txtJsonQuery_textChanged(const QString &arg1);
     void on_actionBrowse_File_triggered();
+    void on_actionNew_File_triggered();
+    void on_actionSave_As_triggered();
 };

@@ -31,7 +31,23 @@ void File::NewFile(QWidget* parent)
             //show a user prompt to ask whether to save the changes or not.
             //then unload.
             //then load a new file.
+            QMessageBox msg;
+            msg.setText("Do you want to save the changes to "+file.fileName()+" ?");
+            msg.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+            msg.setDefaultButton(QMessageBox::Save);
+            int res = msg.exec();
+            switch(res)
+            {
+                case QMessageBox::Save:
+                    Save(parent);
+                  break;
+                case QMessageBox::Discard:
 
+                  break;
+                case QMessageBox::Cancel:
+                  break;
+                default:    break;
+            }
         }
     }
     else
@@ -42,26 +58,29 @@ void File::NewFile(QWidget* parent)
 }
 void File::Save(QWidget* parent)
 {
+
     if(!IsSaved)
     {
         SaveAs(parent);
     }else
     {
-        saveFile(parent, file.fileName());
+        saveFile(parent);
     }
 }
 void File::SaveAs(QWidget* parent)
 {
-    QString fileName = QFileDialog::getSaveFileName(parent);
+    QString fileName = QFileDialog::getSaveFileName(parent, "Select destination.", "/", "Json Files (*.json)");
     if (fileName.isEmpty())
     {
         return;
+    }else
+    {
+        file.setFileName(fileName);
     }
-    saveFile(parent, fileName);
+    saveFile(parent);
 }
-void File::saveFile(QWidget* parent, const QString &fileName)
+void File::saveFile(QWidget* parent)
 {
-    QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox msg(parent);
         msg.setWindowTitle("Error");
@@ -70,12 +89,11 @@ void File::saveFile(QWidget* parent, const QString &fileName)
         msg.exec();
         return;
     }
-
     QTextStream out(&file);
     QApplication::setOverrideCursor(Qt::WaitCursor);
     out << jsonData;
+    updateFileInfo();
     QApplication::restoreOverrideCursor();
-    file.setFileName(fileName);
 }
 void File::LoadFile(QWidget* parent)
 {
@@ -99,6 +117,11 @@ void File::LoadFile(QWidget* parent)
         QApplication::setOverrideCursor(Qt::WaitCursor);
         jsonData = inputStream.readAll();
         validateJson();
+        updateFileInfo();
         QApplication::restoreOverrideCursor();
     }
+}
+void File::updateFileInfo()
+{
+    fileInfo.setFile(file.fileName());
 }

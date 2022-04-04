@@ -56,8 +56,7 @@ void MainWindow::on_actionZoom_Out_triggered()
 
 void MainWindow::on_actionSummary_triggered()
 {
-    QString jsonString = ui.plainTextEdit->toPlainText();
-    if(worker.IsValid(jsonString))
+    if(currentFile.IsValidJson)
     {
         JsonSummaryDialog dialog;
         dialog.SetData(summary);
@@ -92,6 +91,12 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 void MainWindow::loadFile()
 {
     currentFile.LoadFile(this);
+
+    ui.plainTextEdit->setEnabled(true);
+    ui.treeView->setEnabled(true);
+
+    ui.plainTextEdit->setPlainText(currentFile.jsonData);
+
     ui.statusBar->showMessage(tr("File loaded"), 2000);
 }
 
@@ -100,4 +105,14 @@ void MainWindow::on_actionBrowse_File_triggered()
     loadFile();
 }
 
+void MainWindow::on_actionNew_File_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionSave_As_triggered()
+{
+    currentFile.SaveAs(this);
+}
 
