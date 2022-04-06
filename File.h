@@ -17,8 +17,6 @@ public:
     QFileInfo fileInfo;
     QString jsonData;
     bool IsValidJson = false;
-    bool IsSaved = false;
-
     JsonWorker worker;
     //Functions
     File();
@@ -34,9 +32,10 @@ public:
     void saveFile(QWidget* parent);
     void setJsonData(QString data);
     void validateJson();
-    QString* getJsonData();
     void discardChanges();
-
+    void promptSaveChanges(QWidget* parent);
+    bool IsSaved();
+    void resetFile();
 };
 
 #endif // FILE_H

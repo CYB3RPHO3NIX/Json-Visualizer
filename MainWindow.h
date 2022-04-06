@@ -35,4 +35,5 @@ private slots:
     void on_actionBrowse_File_triggered();
     void on_actionNew_File_triggered();
     void on_actionSave_As_triggered();
+    void on_actionSave_triggered();
 };

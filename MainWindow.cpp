@@ -17,7 +17,6 @@ void MainWindow::setStatus(const char* statusString)
 void MainWindow::on_plainTextEdit_textChanged()
 {
     currentFile.jsonData = ui.plainTextEdit->toPlainText();
-    currentFile.IsSaved = false;
     if(currentFile.IsValidJson)
     {
         DrawTreeView(currentFile.jsonData);
@@ -109,10 +108,15 @@ void MainWindow::on_actionNew_File_triggered()
 {
 
 }
-
-
 void MainWindow::on_actionSave_As_triggered()
 {
     currentFile.SaveAs(this);
+}
+void MainWindow::on_actionSave_triggered()
+{
+    if(currentFile.jsonData != ui.plainTextEdit->toPlainText())
+    {
+        currentFile.Save(this);
+    }
 }
 

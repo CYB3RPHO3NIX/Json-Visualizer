@@ -15,57 +15,46 @@ void File::validateJson()
 }
 void File::NewFile(QWidget* parent)
 {
-    IsSaved = false;
     QString fileName = "Untitled.json";
     jsonData = "";
-    //check if there is any file that is currently loaded.
-    if(file.isOpen())
-    {
-        //check if that loaded file is saved or not.
-        if(IsSaved)
-        {
-            file.close();
+    file.setFileName(fileName);
 
-        }else
-        {
-            //show a user prompt to ask whether to save the changes or not.
-            //then unload.
-            //then load a new file.
-            QMessageBox msg;
-            msg.setText("Do you want to save the changes to "+file.fileName()+" ?");
-            msg.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-            msg.setDefaultButton(QMessageBox::Save);
-            int res = msg.exec();
-            switch(res)
-            {
-                case QMessageBox::Save:
-                    Save(parent);
-                  break;
-                case QMessageBox::Discard:
+}
 
-                  break;
-                case QMessageBox::Cancel:
-                  break;
-                default:    break;
-            }
-        }
-    }
-    else
+void File::resetFile()
+{
+    jsonData.clear();
+    file.flush();
+    file.fileName().clear();
+}
+void File::promptSaveChanges(QWidget* parent)
+{
+    QMessageBox msg;
+    msg.setText("Do you want to save the changes to "+file.fileName()+" ?");
+    msg.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msg.setDefaultButton(QMessageBox::Save);
+    int res = msg.exec();
+    switch(res)
     {
-        //load a new File.
+        case QMessageBox::Save:
+            saveFile(parent);
+          break;
+        case QMessageBox::Discard:
+            discardChanges();
+          break;
+        case QMessageBox::Cancel:
+            return;
+          break;
+        default:    break;
     }
-    //call the validate function.
 }
 void File::Save(QWidget* parent)
 {
-
-    if(!IsSaved)
-    {
-        SaveAs(parent);
-    }else
-    {
-        saveFile(parent);
-    }
+    saveFile(parent);
+}
+void File::discardChanges()
+{
+    resetFile();
 }
 void File::SaveAs(QWidget* parent)
 {
@@ -100,7 +89,6 @@ void File::LoadFile(QWidget* parent)
     QString fileName = QFileDialog::getOpenFileName(parent, "Select json file.", "/", "Json files (*.json)");
     if (!fileName.isEmpty())
     {
-        IsSaved = true;
         file.setFileName(fileName);
         fileInfo.setFile(file);
         parent->setWindowTitle("JSON Explorer - " + fileInfo.fileName());
