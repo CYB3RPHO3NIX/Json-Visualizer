@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include <QtNetwork/QNetworkAccessManager>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), currentFile(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), currentFile(this)
 {
     ui.setupUi(this);
 }
@@ -17,12 +17,15 @@ void MainWindow::setStatus(const char* statusString)
 void MainWindow::on_plainTextEdit_textChanged()
 {
     currentFile.jsonData = ui.plainTextEdit->toPlainText();
+    currentFile.validateJson();
     if(currentFile.IsValidJson)
     {
         DrawTreeView(currentFile.jsonData);
         setStatus("Valid Json");
     }else
     {
+        QString empty = "";
+        DrawTreeView(empty);
         setStatus("Invalid Json");
     }
 }
@@ -32,7 +35,10 @@ void MainWindow::DrawTreeView(QString &jsonString)
     ui.treeView->setModel(treeModel);
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    worker.GenerateTreeView(jsonString, treeModel);
+    if(jsonString != "")
+    {
+        worker.GenerateTreeView(jsonString, treeModel);
+    }
     QApplication::restoreOverrideCursor();
 
     summary = treeModel->getJsonSummary();
@@ -90,12 +96,8 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 void MainWindow::loadFile()
 {
     currentFile.LoadFile();
-
-    ui.plainTextEdit->setEnabled(true);
-    ui.treeView->setEnabled(true);
-
+    setEditorEnabled(true);
     ui.plainTextEdit->setPlainText(currentFile.jsonData);
-
     ui.statusBar->showMessage(tr("File loaded"), 2000);
 }
 
@@ -103,12 +105,10 @@ void MainWindow::on_actionBrowse_File_triggered()
 {
     loadFile();
 }
-
 void MainWindow::on_actionNew_File_triggered()
 {
     currentFile.NewFile();
-    ui.plainTextEdit->setEnabled(true);
-    ui.treeView->setEnabled(true);
+    setEditorEnabled(true);
 }
 void MainWindow::on_actionSave_As_triggered()
 {
@@ -116,9 +116,17 @@ void MainWindow::on_actionSave_As_triggered()
 }
 void MainWindow::on_actionSave_triggered()
 {
-    if(currentFile.jsonData != ui.plainTextEdit->toPlainText())
+    currentFile.Save();
+}
+void MainWindow::setEditorEnabled(bool enable)
+{
+    if(enable)
     {
-        currentFile.Save();
+        ui.plainTextEdit->setEnabled(true);
+        ui.treeView->setEnabled(true);
+    }else
+    {
+        ui.plainTextEdit->setEnabled(false);
+        ui.treeView->setEnabled(false);
     }
 }
-

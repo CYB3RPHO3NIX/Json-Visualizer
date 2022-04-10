@@ -30,20 +30,19 @@ void File::NewFile()
 }
 void File::LoadEmptyFile()
 {
-    file.setFileName("Untitled.json");
+    fileName = "Untitled.json";
     jsonData = "";
     validateJson();
-    updateWindowTitle();
+    updateWindowTitle(fileName);
 }
 void File::resetFile()
 {
     jsonData.clear();
-    file.remove();
 }
 void File::promptSaveChanges()
 {
     QMessageBox msg;
-    msg.setText("Do you want to save the changes to "+file.fileName()+" ?");
+    msg.setText("Do you want to save the changes to "+fileName+" ?");
     msg.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     msg.setDefaultButton(QMessageBox::Save);
     int res = msg.exec();
@@ -63,7 +62,7 @@ void File::promptSaveChanges()
 }
 bool File::IsSaved()
 {
-    QTextStream inputStream(&file);
+    QTextStream inputStream(&filePath);
     if(inputStream.readAll() == jsonData)
     {
         return true;
@@ -94,12 +93,14 @@ void File::SaveAs()
         return;
     }else
     {
-        file.setFileName(fileName);
+        this->filePath = fileName;
+        updateFileInfo();
     }
     saveFile();
 }
 void File::saveFile()
 {
+    QFile file(filePath);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox msg(parent);
         msg.setWindowTitle("Error");
@@ -116,11 +117,12 @@ void File::saveFile()
 }
 void File::LoadFile()
 {
+    QFile file;
     QString fileName = QFileDialog::getOpenFileName(parent, "Select json file.", "/", "Json files (*.json)");
+    file.setFileName(fileName);
     if (!fileName.isEmpty())
     {
-        setFile(fileName);
-        updateWindowTitle();
+        updateWindowTitle(fileInfo.fileName());
         if(!file.open(QFile::ReadOnly | QFile::Text))
         {
             QMessageBox msg(parent);
@@ -138,27 +140,15 @@ void File::LoadFile()
         QApplication::restoreOverrideCursor();
     }
 }
-void File::updateWindowTitle()
+void File::updateWindowTitle(QString filename)
 {
-    if(IsSaved())
-    {
-        parent->setWindowTitle("JSON Explorer - " + fileInfo.fileName());
-    }else
-    {
-        parent->setWindowTitle("JSON Explorer - " + fileInfo.fileName()+"*");
-    }
-
-}
-void File::setFile(QString& fileName)
-{
-    file.setFileName(fileName);
-    fileInfo.setFile(file);
+    parent->setWindowTitle("JSON Explorer - " + filename);
 }
 bool File::doesFileExists()
 {
-   return file.exists();
+   return QFile::exists(filePath);
 }
 void File::updateFileInfo()
 {
-    fileInfo.setFile(file.fileName());
+    fileInfo.setFile(filePath);
 }

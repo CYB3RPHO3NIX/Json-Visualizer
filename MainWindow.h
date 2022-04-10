@@ -26,6 +26,7 @@ private:
     void loadURL(QString &url);
     void loadFile();
     void saveFile(QString &filename);
+    void setEditorEnabled(bool enable);
 private slots:
     void on_plainTextEdit_textChanged();
     void on_actionZoom_In_triggered();

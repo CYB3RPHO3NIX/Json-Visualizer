@@ -15,10 +15,14 @@ public:
     QWidget* parent;
 
     //Variables
-    QFile file;
+
     QFileInfo fileInfo;
+
     QString jsonData;
+    QString fileName;
+    QString filePath;
     bool IsValidJson = false;
+
     JsonWorker worker;
     //Functions
     File(QWidget*);
@@ -39,8 +43,7 @@ public:
     bool IsSaved();
     void resetFile();
     bool doesFileExists();
-    void setFile(QString&);
-    void updateWindowTitle();
+    void updateWindowTitle(QString);
     void LoadEmptyFile();
 };
 
