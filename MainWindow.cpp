@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include <QtNetwork/QNetworkAccessManager>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), currentFile(parent)
 {
     ui.setupUi(this);
 }
@@ -89,7 +89,7 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 }
 void MainWindow::loadFile()
 {
-    currentFile.LoadFile(this);
+    currentFile.LoadFile();
 
     ui.plainTextEdit->setEnabled(true);
     ui.treeView->setEnabled(true);
@@ -106,17 +106,19 @@ void MainWindow::on_actionBrowse_File_triggered()
 
 void MainWindow::on_actionNew_File_triggered()
 {
-
+    currentFile.NewFile();
+    ui.plainTextEdit->setEnabled(true);
+    ui.treeView->setEnabled(true);
 }
 void MainWindow::on_actionSave_As_triggered()
 {
-    currentFile.SaveAs(this);
+    currentFile.SaveAs();
 }
 void MainWindow::on_actionSave_triggered()
 {
     if(currentFile.jsonData != ui.plainTextEdit->toPlainText())
     {
-        currentFile.Save(this);
+        currentFile.Save();
     }
 }
 

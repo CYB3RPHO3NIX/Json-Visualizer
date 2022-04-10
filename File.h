@@ -12,6 +12,8 @@
 class File
 {
 public:
+    QWidget* parent;
+
     //Variables
     QFile file;
     QFileInfo fileInfo;
@@ -19,23 +21,27 @@ public:
     bool IsValidJson = false;
     JsonWorker worker;
     //Functions
-    File();
-    void LoadFile(QWidget* parent);
-    void NewFile(QWidget* parent);
-    void Save(QWidget* parent);
-    void SaveAs(QWidget* parent);
-    void LoadURL(QWidget* parent);
-    void OpenContainingFolder(QWidget* parent);
-    void Close(QWidget* parent);
+    File(QWidget*);
+    void LoadFile();
+    void NewFile();
+    void Save();
+    void SaveAs();
+    void LoadURL();
+    void OpenContainingFolder();
+    void Close();
 
     void updateFileInfo();
-    void saveFile(QWidget* parent);
-    void setJsonData(QString data);
+    void saveFile();
+    void setJsonData();
     void validateJson();
     void discardChanges();
-    void promptSaveChanges(QWidget* parent);
+    void promptSaveChanges();
     bool IsSaved();
     void resetFile();
+    bool doesFileExists();
+    void setFile(QString&);
+    void updateWindowTitle();
+    void LoadEmptyFile();
 };
 
 #endif // FILE_H
