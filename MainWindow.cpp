@@ -1,11 +1,7 @@
 #include "MainWindow.h"
-#include "JsonSummaryDialog.h"
-#include <QMessageBox>
-#include <QTextStream>
-#include <QFileDialog>
-#include <QtNetwork/QNetworkAccessManager>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), currentFile(this)
+
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
 }
@@ -16,8 +12,7 @@ void MainWindow::setStatus(const char* statusString)
 
 void MainWindow::on_plainTextEdit_textChanged()
 {
-    currentFile.jsonData = ui.plainTextEdit->toPlainText();
-    currentFile.validateJson();
+    *currentFile->jsonData = ui.plainTextEdit->toPlainText();
     if(currentFile.IsValidJson)
     {
         DrawTreeView(currentFile.jsonData);
@@ -29,6 +24,7 @@ void MainWindow::on_plainTextEdit_textChanged()
         setStatus("Invalid Json");
     }
 }
+
 void MainWindow::DrawTreeView(QString &jsonString)
 {
     treeModel = new QJsonModel();
@@ -91,42 +87,45 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
     {
 
     }
-
 }
 void MainWindow::loadFile()
 {
-    currentFile.LoadFile();
-    setEditorEnabled(true);
-    ui.plainTextEdit->setPlainText(currentFile.jsonData);
-    ui.statusBar->showMessage(tr("File loaded"), 2000);
-}
 
+}
+void MainWindow::newFile()
+{
+
+}
+void MainWindow::saveFile()
+{
+
+}
+void MainWindow::saveAsFile()
+{
+
+}
+void MainWindow::loadURL(QString url)
+{
+
+}
 void MainWindow::on_actionBrowse_File_triggered()
 {
-    loadFile();
+
 }
 void MainWindow::on_actionNew_File_triggered()
 {
-    currentFile.NewFile();
-    setEditorEnabled(true);
+
 }
 void MainWindow::on_actionSave_As_triggered()
 {
-    currentFile.SaveAs();
+
 }
 void MainWindow::on_actionSave_triggered()
 {
-    currentFile.Save();
+
 }
 void MainWindow::setEditorEnabled(bool enable)
 {
-    if(enable)
-    {
-        ui.plainTextEdit->setEnabled(true);
-        ui.treeView->setEnabled(true);
-    }else
-    {
-        ui.plainTextEdit->setEnabled(false);
-        ui.treeView->setEnabled(false);
-    }
+    ui.plainTextEdit->setEnabled(enable);
+    ui.treeView->setEnabled(enable);
 }

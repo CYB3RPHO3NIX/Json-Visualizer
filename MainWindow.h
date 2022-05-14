@@ -4,7 +4,12 @@
 #include "ui_MainWindow.h"
 #include "JsonSummary.h"
 #include "JsonWorker.h"
-#include "File.h"
+#include "memoryfile.h"
+#include "JsonSummaryDialog.h"
+#include <QMessageBox>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QtNetwork/QNetworkAccessManager>
 
 class MainWindow : public QMainWindow
 {
@@ -15,7 +20,7 @@ public:
     
 private:
     Ui::MainWindowClass ui;
-    File currentFile;
+    MemoryFile *currentFile;
     JsonSummary summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
     QJsonModel* treeModel;
@@ -23,9 +28,11 @@ private:
     //functions
     void DrawTreeView(QString &jsonString);
     void setStatus(const char* statusString);
-    void loadURL(QString &url);
+    void loadURL(QString url);
     void loadFile();
-    void saveFile(QString &filename);
+    void saveFile();
+    void newFile();
+    void saveAsFile();
     void setEditorEnabled(bool enable);
 private slots:
     void on_plainTextEdit_textChanged();

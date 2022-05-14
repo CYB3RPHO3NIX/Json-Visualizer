@@ -22,7 +22,7 @@ void JsonWorker::GenerateTreeView(QString& jsonString, QJsonModel* jsonModel)
 	jsonModel->loadJson(QByteArray::fromStdString(jsonString.toStdString()));
 }
 
-QString JsonWorker::QueryJson(QString jsonString, QString queryString)
+QString JsonWorker::QueryJson(QString& jsonString, QString queryString)
 {
     try
     {
