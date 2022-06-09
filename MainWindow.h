@@ -4,7 +4,6 @@
 #include "ui_MainWindow.h"
 #include "JsonSummary.h"
 #include "JsonWorker.h"
-#include "memoryfile.h"
 #include "JsonSummaryDialog.h"
 #include <QMessageBox>
 #include <QTextStream>
@@ -20,7 +19,6 @@ public:
     
 private:
     Ui::MainWindowClass ui;
-    MemoryFile *currentFile;
     JsonSummary summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
     QJsonModel* treeModel;
