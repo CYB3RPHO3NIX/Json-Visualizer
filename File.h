@@ -4,13 +4,16 @@
 #include<QFile>
 #include<QFileInfo>
 #include<QTextStream>
+#include<QCryptographicHash>
 
-class File : QFile, QFileInfo
+class File : public QFile
 {
 private:
     QString *jsonData;
-    QString fileName;
+
 public:
+    std::string jsonMD5Hash;
+    bool isValidJson;
 
     File();
     //Json Data related operations.
@@ -18,6 +21,7 @@ public:
     void SetJsonData(QString);
     void ClearJsonData();
     //Json Data related operations.
+    void UpdateFileHash();
 
     void ReadFile();
     void WriteFile();

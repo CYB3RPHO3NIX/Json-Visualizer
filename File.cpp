@@ -7,7 +7,7 @@ File::File()
 
 void File::ReadFile()
 {
-    QFile f(fileName);
+    QFile f(this->fileName());
     if (!f.open(QFile::ReadOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
@@ -15,9 +15,14 @@ void File::ReadFile()
     QTextStream in(&f);
     SetJsonData(in.readAll());
 }
+void File::UpdateFileHash()
+{
+    QByteArray hash = QCryptographicHash::hash(jsonData->toLocal8Bit(), QCryptographicHash::Md5);
+    jsonMD5Hash = hash.toHex().toStdString();
+}
 void File::WriteFile()
 {
-    QFile f(fileName);
+    QFile f(this->fileName());
     if (!f.open(QFile::WriteOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
@@ -27,6 +32,7 @@ void File::WriteFile()
 }
 void File::SetJsonData(QString jsonString)
 {
+    UpdateFileHash();
     *jsonData = jsonString;
 }
 QString* File::GetJsonData()

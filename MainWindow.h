@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QtNetwork/QNetworkAccessManager>
+#include <File.h>
 
 class MainWindow : public QMainWindow
 {
@@ -19,9 +20,11 @@ public:
     
 private:
     Ui::MainWindowClass ui;
+    File *currentFile = NULL;
     JsonSummary summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
     QJsonModel* treeModel;
+    std::string jsonMD5Hash;
 
     //functions
     void DrawTreeView(QString &jsonString);
@@ -32,6 +35,17 @@ private:
     void newFile();
     void saveAsFile();
     void setEditorEnabled(bool enable);
+
+    void saveChanges();
+    void validateJson();
+    void ResetLayout();
+    bool isAnyFileOpen();
+    bool isFileSaved();
+    void DestroyFileInstance();
+    void BrowseFile();
+    void createNewFile(QString);
+    int PromptSaveChanges();
+    void updateEditorTextHash();
 private slots:
     void on_plainTextEdit_textChanged();
     void on_actionZoom_In_triggered();
