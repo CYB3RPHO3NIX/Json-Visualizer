@@ -8,10 +8,8 @@
 
 class File : public QFile
 {
-private:
-    QString *jsonData;
-
 public:
+    QString jsonData;
     std::string jsonMD5Hash;
     bool isValidJson;
 

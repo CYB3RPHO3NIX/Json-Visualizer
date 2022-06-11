@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
+    setEditorEnabled(false);
 }
 void MainWindow::setStatus(const char* statusString)
 {
@@ -20,7 +21,7 @@ void MainWindow::on_plainTextEdit_textChanged()
         setStatus("Valid Json");
     }else
     {
-        QString empty = "";
+        QString empty="";
         DrawTreeView(empty);
         setStatus("Invalid Json");
     }
@@ -29,7 +30,7 @@ void MainWindow::validateJson()
 {
     currentFile->isValidJson = worker.IsValid(*currentFile->GetJsonData());
 }
-void MainWindow::DrawTreeView(QString &jsonString)
+void MainWindow::DrawTreeView(QString& jsonString)
 {
     treeModel = new QJsonModel();
     ui.treeView->setModel(treeModel);
@@ -65,7 +66,6 @@ void MainWindow::on_actionSummary_triggered()
     {
         JsonSummaryDialog dialog;
         dialog.SetData(summary);
-        dialog.exec();
     }else
     {
         QMessageBox msg;
@@ -116,10 +116,11 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 {
     if(queryString != "")
     {
-        QString filtered = worker.QueryJson(*currentFile->GetJsonData(), queryString);
-        if(filtered != "")
+        QString *filtered = new QString();
+        *filtered = worker.QueryJson(*currentFile->GetJsonData(), queryString);
+        if(*filtered != "")
         {
-            DrawTreeView(filtered);
+            DrawTreeView(*filtered);
             ui.treeView->expandAll();
         }
     }else
@@ -262,6 +263,6 @@ void MainWindow::on_actionSave_triggered()
 }
 void MainWindow::setEditorEnabled(bool enable)
 {
-    ui.plainTextEdit->setEnabled(enable);
-    ui.treeView->setEnabled(enable);
+    ui.plainTextEdit->setHidden(!enable);
+    ui.treeView->setHidden(!enable);
 }

@@ -17,7 +17,7 @@ void File::ReadFile()
 }
 void File::UpdateFileHash()
 {
-    QByteArray hash = QCryptographicHash::hash(jsonData->toLocal8Bit(), QCryptographicHash::Md5);
+    QByteArray hash = QCryptographicHash::hash(jsonData.toLocal8Bit(), QCryptographicHash::Md5);
     jsonMD5Hash = hash.toHex().toStdString();
 }
 void File::WriteFile()
@@ -33,13 +33,13 @@ void File::WriteFile()
 void File::SetJsonData(QString jsonString)
 {
     UpdateFileHash();
-    *jsonData = jsonString;
+    jsonData = jsonString;
 }
 QString* File::GetJsonData()
 {
-    return jsonData;
+    return &jsonData;
 }
 void File::ClearJsonData()
 {
-    delete jsonData;
+    SetJsonData("");
 }

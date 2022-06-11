@@ -36,7 +36,7 @@
       </property>
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="font">
         <font>
@@ -49,7 +49,7 @@
       </widget>
       <widget class="QTreeView" name="treeView">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
@@ -89,7 +89,7 @@
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

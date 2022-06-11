@@ -27,7 +27,7 @@ private:
     std::string jsonMD5Hash;
 
     //functions
-    void DrawTreeView(QString &jsonString);
+    void DrawTreeView(QString& jsonString);
     void setStatus(const char* statusString);
     void loadURL(QString url);
     void loadFile();
