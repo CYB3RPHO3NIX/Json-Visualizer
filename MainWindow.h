@@ -17,10 +17,10 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = Q_NULLPTR);
+    File *currentFile = NULL;
     
 private:
     Ui::MainWindowClass ui;
-    File *currentFile = NULL;
     JsonSummary summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
     QJsonModel* treeModel;
@@ -30,7 +30,7 @@ private:
     void DrawTreeView(QString& jsonString);
     void setStatus(const char* statusString);
     void loadURL(QString url);
-    void loadFile();
+    void loadFile(QString filename);
     void saveFile();
     void newFile();
     void saveAsFile();

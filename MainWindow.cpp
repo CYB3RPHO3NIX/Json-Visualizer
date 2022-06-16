@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
@@ -128,7 +127,7 @@ void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 
     }
 }
-void MainWindow::loadFile()
+void MainWindow::loadFile(QString filename)
 {
     if(isAnyFileOpen())
     {
@@ -149,21 +148,20 @@ void MainWindow::loadFile()
               case QMessageBox::Cancel:
                   return;
               default:
-                  break;
+                  return;
             }
         }
     }
-    BrowseFile();
+    currentFile = new File();
+    currentFile->setFileName(filename);
+    currentFile->ReadFile();
+    ui.plainTextEdit->setPlainText(*currentFile->GetJsonData());
+    setEditorEnabled(true);
 }
 void MainWindow::BrowseFile()
 {
-    QString filename = QFileDialog::getOpenFileName(
-                    nullptr,
-                    QObject::tr("Open Json File"),
-                    QDir::currentPath(),
-                    QObject::tr("Json files (*.json)")
-                );
-    currentFile->setFileName(filename);
+    QString filename = QFileDialog::getOpenFileName(this, "Open Json File", QDir::homePath(), "Json Files (*.json)");
+    loadFile(filename);
 }
 void MainWindow::newFile()
 {
@@ -243,7 +241,7 @@ void MainWindow::saveChanges()
 }
 void MainWindow::loadURL(QString url)
 {
-    loadFile();
+    //loadFile();
 }
 void MainWindow::on_actionBrowse_File_triggered()
 {

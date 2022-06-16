@@ -7,12 +7,11 @@ File::File()
 
 void File::ReadFile()
 {
-    QFile f(this->fileName());
-    if (!f.open(QFile::ReadOnly | QFile::Text))
+    if (!this->open(QFile::ReadOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
     }
-    QTextStream in(&f);
+    QTextStream in(this);
     SetJsonData(in.readAll());
 }
 void File::UpdateFileHash()
@@ -22,13 +21,13 @@ void File::UpdateFileHash()
 }
 void File::WriteFile()
 {
-    QFile f(this->fileName());
-    if (!f.open(QFile::WriteOnly | QFile::Text))
+
+    if (!this->open(QFile::WriteOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
     }
-    QTextStream out(&f);
-    f.write(GetJsonData()->toUtf8());
+    QTextStream out(this);
+    this->write(GetJsonData()->toUtf8());
 }
 void File::SetJsonData(QString jsonString)
 {
