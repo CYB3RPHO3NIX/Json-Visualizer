@@ -13,6 +13,7 @@ void MainWindow::setStatus(const char* statusString)
 void MainWindow::on_plainTextEdit_textChanged()
 {
     currentFile->SetJsonData(ui.plainTextEdit->toPlainText());
+    updateEditorTextHash();
     validateJson();
     if(currentFile->isValidJson)
     {
@@ -161,7 +162,7 @@ void MainWindow::loadFile(QString filename)
 void MainWindow::BrowseFile()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Open Json File", QDir::homePath(), "Json Files (*.json)");
-    loadFile(filename);
+    if(!filename.isEmpty()) loadFile(filename);
 }
 void MainWindow::newFile()
 {
@@ -217,16 +218,12 @@ int MainWindow::PromptSaveChanges()
 }
 void MainWindow::saveAsFile()
 {
-    QFileDialog dialog;
-    dialog.setDefaultSuffix(".json");
-    dialog.setWindowTitle("Select Destination");
-    QString fileName = QFileDialog::getSaveFileName(this);
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Json File"), QDir::homePath(), tr("Json Files (*.json)"));
     if (fileName.isEmpty())
     {
         return;
     }else
     {
-        DestroyFileInstance();
         createNewFile(fileName);
     }
     saveChanges();

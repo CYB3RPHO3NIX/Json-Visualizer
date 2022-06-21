@@ -13,6 +13,7 @@ void File::ReadFile()
     }
     QTextStream in(this);
     SetJsonData(in.readAll());
+    this->close();
 }
 void File::UpdateFileHash()
 {
@@ -21,13 +22,13 @@ void File::UpdateFileHash()
 }
 void File::WriteFile()
 {
-
     if (!this->open(QFile::WriteOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
     }
     QTextStream out(this);
-    this->write(GetJsonData()->toUtf8());
+    out << GetJsonData()->toUtf8();
+    this->close();
 }
 void File::SetJsonData(QString jsonString)
 {
