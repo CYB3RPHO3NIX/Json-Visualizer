@@ -29,12 +29,12 @@
             <item>
              <widget class="QLabel" name="label">
               <property name="text">
-               <string>File Size</string>
+               <string>Data Size</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit">
+             <widget class="QLineEdit" name="txt_dataSize">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -48,7 +48,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_2">
+             <widget class="QLineEdit" name="txt_parsingTime">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -66,7 +66,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_3">
+             <widget class="QLineEdit" name="txt_md5Hash">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -88,7 +88,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout">
           <item row="1" column="3">
-           <widget class="QLineEdit" name="lineEdit_7">
+           <widget class="QLineEdit" name="txt_numbers">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -116,14 +116,14 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QLineEdit" name="lineEdit_5">
+           <widget class="QLineEdit" name="txt_arrays">
             <property name="readOnly">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_6">
+           <widget class="QLineEdit" name="txt_strings">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -144,14 +144,14 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_8">
+           <widget class="QLineEdit" name="txt_nulls">
             <property name="readOnly">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_4">
+           <widget class="QLineEdit" name="txt_objects">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -165,7 +165,7 @@
            </widget>
           </item>
           <item row="2" column="3">
-           <widget class="QLineEdit" name="lineEdit_9">
+           <widget class="QLineEdit" name="txt_booleans">
             <property name="readOnly">
              <bool>true</bool>
             </property>

@@ -21,10 +21,14 @@ public:
     
 private:
     Ui::MainWindowClass ui;
-    Summary summary;    //this will store the analysis data of the json.
+    Summary* summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
     QJsonModel* treeModel;
     std::string plainTextEditorMD5Hash;
+
+    //recreated functions
+    void UpdateJsonSummary();
+
 
     //functions
     void DrawTreeView(QString& jsonString);

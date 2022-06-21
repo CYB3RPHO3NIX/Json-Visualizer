@@ -20,6 +20,8 @@ public:
 private:
     Ui::Summary *ui;
     std::string MD5_Hash;
+    int ParsingTime;
+    int DataSize;
 
     long long ObjectCount;
     long long ArrayCount;
@@ -29,7 +31,6 @@ private:
     long long BooleanCount;
 
 public:
-
     void setMD5_Hash(QString);
     void setObjectCount(long long);
     void setArrayCount(long long);
@@ -37,6 +38,8 @@ public:
     void setNumberCount(long long);
     void setNullCount(long long);
     void setBooleanCount(long long);
+    void setParsingTime(int time);
+    void setDataSize(int size);
 
     std::string getMD5_Hash();
     long long getObjectCount();
@@ -45,6 +48,8 @@ public:
     long long getNumberCount();
     long long getNullCount();
     long long getBooleanCount();
+    int getParsingTime();
+    int getDataSize();
 };
 
 #endif // SUMMARY_H

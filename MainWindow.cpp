@@ -41,15 +41,17 @@ void MainWindow::DrawTreeView(QString& jsonString)
         worker.GenerateTreeView(jsonString, treeModel);
     }
     QApplication::restoreOverrideCursor();
-
-    summary = treeModel->getJsonSummary();
-    summary.setMD5_Hash(jsonString);
-    summary.setSHA256_Hash(jsonString);
-    summary.setSHA512_Hash(jsonString);
-
     ui.treeView->show();
 }
-
+void MainWindow::UpdateJsonSummary()
+{
+    summary = treeModel->getJsonSummary();
+    QByteArray bytes = ui.plainTextEdit->toPlainText().toUtf8();
+    int length = bytes.size();
+    summary->setDataSize(length);
+    summary->setParsingTime(worker.getParsingTime());
+    summary->setMD5_Hash(ui.plainTextEdit->toPlainText());
+}
 void MainWindow::on_actionZoom_In_triggered()
 {
     ui.plainTextEdit->zoomIn();

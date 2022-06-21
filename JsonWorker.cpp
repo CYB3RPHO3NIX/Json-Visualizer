@@ -1,12 +1,15 @@
 #include "JsonWorker.h"
 #include <string.h>
-
+#include <QTime>
 
 bool JsonWorker::IsValid(QString& jsonString)
 {
 	simdjson::error_code error;
 	simdjson::dom::parser parser;
+    QTime timer;
+    timer.start();
 	error = parser.parse(simdjson::padded_string(jsonString.toStdString())).error();
+    this->ParsingTime = timer.elapsed();
 	if (error)
 	{
 		return false;
@@ -16,7 +19,10 @@ bool JsonWorker::IsValid(QString& jsonString)
 		return true;
 	}
 }
-
+int JsonWorker::getParsingTime()
+{
+    return this->ParsingTime;
+}
 void JsonWorker::GenerateTreeView(QString& jsonString, QJsonModel* jsonModel)
 {
 	jsonModel->loadJson(QByteArray::fromStdString(jsonString.toStdString()));
