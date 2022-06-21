@@ -11,9 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     File.cpp \
-    JsonSummary.cpp \
     JsonWorker.cpp \
-    JsonSummaryDialog.cpp \
     Summary.cpp \
     main.cpp \
     MainWindow.cpp \
@@ -22,7 +20,6 @@ SOURCES += \
 
 HEADERS += \
     File.h \
-    JsonSummary.h \
     JsonWorker.h \
     MainWindow.h \
     Summary.h \
@@ -35,13 +32,11 @@ HEADERS += \
     jsoncons_ext/jsonpath/jsonpath_error.hpp \
     jsoncons_ext/jsonpath/jsonpath_expression.hpp \
     jsoncons_ext/jsonpath/jsonpath_selector.hpp \
-    JsonSummaryDialog.h \
     qjsonmodel.h \
     simdjson.h
 
 FORMS += \
     MainWindow.ui \
-    JsonSummaryDialog.ui \
     Summary.ui
 
 # Default rules for deployment.
