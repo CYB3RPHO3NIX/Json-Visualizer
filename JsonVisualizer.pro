@@ -14,6 +14,7 @@ SOURCES += \
     JsonSummary.cpp \
     JsonWorker.cpp \
     JsonSummaryDialog.cpp \
+    Summary.cpp \
     main.cpp \
     MainWindow.cpp \
     qjsonmodel.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     JsonSummary.h \
     JsonWorker.h \
     MainWindow.h \
+    Summary.h \
     jsoncons/json.hpp \
     jsoncons_ext/jsonpath/expression.hpp \
     jsoncons_ext/jsonpath/flatten.hpp \
@@ -39,7 +41,8 @@ HEADERS += \
 
 FORMS += \
     MainWindow.ui \
-    JsonSummaryDialog.ui
+    JsonSummaryDialog.ui \
+    Summary.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

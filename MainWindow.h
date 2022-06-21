@@ -6,6 +6,7 @@
 #include "JsonWorker.h"
 #include "JsonSummaryDialog.h"
 #include <QMessageBox>
+#include <QTime>
 #include <QTextStream>
 #include <QFileDialog>
 #include <QtNetwork/QNetworkAccessManager>
@@ -17,35 +18,18 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = Q_NULLPTR);
-    File *currentFile = NULL;
     
 private:
     Ui::MainWindowClass ui;
-    JsonSummary summary;    //this will store the analysis data of the json.
+    Summary summary;    //this will store the analysis data of the json.
     JsonWorker worker;      //worker class for handling json related operations.
     QJsonModel* treeModel;
-    std::string jsonMD5Hash;
+    std::string plainTextEditorMD5Hash;
 
     //functions
     void DrawTreeView(QString& jsonString);
     void setStatus(const char* statusString);
-    void loadURL(QString url);
-    void loadFile(QString filename);
-    void saveFile();
-    void newFile();
-    void saveAsFile();
     void setEditorEnabled(bool enable);
-
-    void saveChanges();
-    void validateJson();
-    void ResetLayout();
-    bool isAnyFileOpen();
-    bool isFileSaved();
-    void DestroyFileInstance();
-    void BrowseFile();
-    void createNewFile(QString);
-    int PromptSaveChanges();
-    void updateEditorTextHash();
 private slots:
     void on_plainTextEdit_textChanged();
     void on_actionZoom_In_triggered();

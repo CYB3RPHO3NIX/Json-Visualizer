@@ -43,3 +43,7 @@ void File::ClearJsonData()
 {
     SetJsonData("");
 }
+void File::Save()
+{
+    WriteFile();
+}

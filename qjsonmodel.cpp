@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QFont>
 
-JsonSummary* QJsonTreeItem::summary = new JsonSummary();
+Summary* QJsonTreeItem::summary = new Summary();
 
 QJsonTreeItem::QJsonTreeItem(QJsonTreeItem* parent)
 {
@@ -577,9 +577,14 @@ QJsonValue  QJsonModel::genJson(QJsonTreeItem* item) const
 	}
 
 }
-JsonSummary QJsonModel::getJsonSummary()
+Summary* QJsonModel::getJsonSummary()
 {
-	JsonSummary sum;
-	sum = *mRootItem->summary;
+    Summary *sum = new Summary();
+    sum->setObjectCount(mRootItem->summary->getObjectCount());
+    sum->setArrayCount(mRootItem->summary->getArrayCount());
+    sum->setStringCount(mRootItem->summary->getStringCount());
+    sum->setNumberCount(mRootItem->summary->getNumberCount());
+    sum->setNullCount(mRootItem->summary->getNullCount());
+    sum->setBooleanCount(mRootItem->summary->getBooleanCount());
 	return sum;
 }

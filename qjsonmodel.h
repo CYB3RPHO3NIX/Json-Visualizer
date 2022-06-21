@@ -8,7 +8,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QIcon>
-#include "JsonSummary.h"
+#include "Summary.h"
 
 namespace QUtf8Functions
 {
@@ -258,7 +258,7 @@ public:
     QString key() const;
     QVariant value() const;
     QJsonValue::Type type() const;
-    static JsonSummary *summary;
+    static Summary *summary;
     static QJsonTreeItem* load(const QJsonValue& value, QJsonTreeItem* parent = 0);
 
 protected:
@@ -300,7 +300,7 @@ public:
     void arrayContentToJson(QJsonArray jsonArray, QByteArray& json, int indent, bool compact);
     void objectContentToJson(QJsonObject jsonObject, QByteArray& json, int indent, bool compact);
     void valueToJson(QJsonValue jsonValue, QByteArray& json, int indent, bool compact);
-    JsonSummary getJsonSummary();
+    Summary* getJsonSummary();
 private:
     QJsonValue genJson(QJsonTreeItem*) const;
     QJsonTreeItem* mRootItem;

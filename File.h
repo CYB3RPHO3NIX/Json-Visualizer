@@ -20,6 +20,7 @@ public:
     void ClearJsonData();
     //Json Data related operations.
     void UpdateFileHash();
+    void Save();
 
     void ReadFile();
     void WriteFile();

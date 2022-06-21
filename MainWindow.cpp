@@ -132,25 +132,31 @@ void MainWindow::loadFile(QString filename)
 {
     if(isAnyFileOpen())
     {
-        if(isFileSaved())
+        if(currentFile->exists())
         {
-            DestroyFileInstance();
+            if(isFileSaved())
+            {
+                DestroyFileInstance();
+            }else
+            {
+                switch (PromptSaveChanges())
+                {
+                  case QMessageBox::Save:
+                        saveChanges();
+                        DestroyFileInstance();
+                      break;
+                  case QMessageBox::Discard:
+                        DestroyFileInstance();
+                      break;
+                  case QMessageBox::Cancel:
+                      return;
+                  default:
+                      return;
+                }
+            }
         }else
         {
-            switch (PromptSaveChanges())
-            {
-              case QMessageBox::Save:
-                    saveChanges();
-                    DestroyFileInstance();
-                  break;
-              case QMessageBox::Discard:
-                    DestroyFileInstance();
-                  break;
-              case QMessageBox::Cancel:
-                  return;
-              default:
-                  return;
-            }
+            DestroyFileInstance();
         }
     }
     currentFile = new File();
@@ -168,25 +174,31 @@ void MainWindow::newFile()
 {
     if(isAnyFileOpen())
     {
-        if(isFileSaved())
+        if(currentFile->exists())
         {
-            DestroyFileInstance();
+            if(isFileSaved())
+            {
+                DestroyFileInstance();
+            }else
+            {
+                switch (PromptSaveChanges())
+                {
+                  case QMessageBox::Save:
+                        saveChanges();
+                        DestroyFileInstance();
+                      break;
+                  case QMessageBox::Discard:
+                        DestroyFileInstance();
+                      break;
+                  case QMessageBox::Cancel:
+                      return;
+                  default:
+                      break;
+                }
+            }
         }else
         {
-            switch (PromptSaveChanges())
-            {
-              case QMessageBox::Save:
-                    saveChanges();
-                    DestroyFileInstance();
-                  break;
-              case QMessageBox::Discard:
-                    DestroyFileInstance();
-                  break;
-              case QMessageBox::Cancel:
-                  return;
-              default:
-                  break;
-            }
+            DestroyFileInstance();
         }
     }
     createNewFile("Untitled.json");
@@ -261,3 +273,4 @@ void MainWindow::setEditorEnabled(bool enable)
     ui.plainTextEdit->setHidden(!enable);
     ui.treeView->setHidden(!enable);
 }
+
