@@ -1,34 +1,36 @@
 #include "File.h"
 
-File::File()
-{
 
-}
-
-void File::ReadFile()
+QString File::ReadFile()
 {
-    if (!this->open(QFile::ReadOnly | QFile::Text))
+    QFile *file = new QFile(_filePath);
+    if (!file->open(QFile::ReadOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
     }
     QTextStream in(this);
-    SetJsonData(in.readAll());
-    this->close();
-}
+    QString data = in.readAll();
+    file->close();
+    delete file;
+    return data;
+}// This function is done.
+
 void File::UpdateFileHash()
 {
     QByteArray hash = QCryptographicHash::hash(jsonData.toLocal8Bit(), QCryptographicHash::Md5);
     jsonMD5Hash = hash.toHex().toStdString();
 }
-void File::WriteFile()
+void File::WriteFile(QString& data)
 {
-    if (!this->open(QFile::WriteOnly | QFile::Text))
+    QFile *file = new QFile(_filePath);
+    if (!file->open(QFile::WriteOnly | QFile::Text))
     {
         throw std::exception("Cannot open File.");
     }
-    QTextStream out(this);
-    out << GetJsonData()->toUtf8();
-    this->close();
+    QTextStream out(file);
+    out << data.toUtf8();
+    file->close();
+    delete file;
 }
 void File::SetJsonData(QString jsonString)
 {

@@ -2,9 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_MainWindow.h"
-#include "JsonSummary.h"
+#include "Summary.h"
 #include "JsonWorker.h"
-#include "JsonSummaryDialog.h"
 #include <QMessageBox>
 #include <QTime>
 #include <QTextStream>

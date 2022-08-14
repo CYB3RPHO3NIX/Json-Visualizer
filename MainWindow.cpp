@@ -10,6 +10,8 @@ void MainWindow::setStatus(const char* statusString)
     ui.statusBar->showMessage(statusString);
 }
 
+
+//plainTextEdit is the variable that holds the actual Json Data.
 void MainWindow::on_plainTextEdit_textChanged()
 {
     currentFile->SetJsonData(ui.plainTextEdit->toPlainText());
