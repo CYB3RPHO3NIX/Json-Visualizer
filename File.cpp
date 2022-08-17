@@ -1,51 +1,72 @@
 #include "File.h"
 
 
-QString File::ReadFile()
-{
-    QFile *file = new QFile(_filePath);
-    if (!file->open(QFile::ReadOnly | QFile::Text))
-    {
-        throw std::exception("Cannot open File.");
-    }
-    QTextStream in(this);
-    QString data = in.readAll();
-    file->close();
-    delete file;
-    return data;
-}// This function is done.
 
+bool File::OpenFile()
+{
+    if (!_file.open(QFile::ReadWrite | QFile::Text))
+    {
+        QMessageBox msg;
+        msg.setIcon(QMessageBox::Critical);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.setText("Cannot open File.");
+        msg.exec();
+        return false;
+    }else
+    {
+        return true;
+    }
+}
+bool File::CloseFile()
+{
+    try {
+    _file.close();
+    return true;
+    }  catch (...) {
+        QMessageBox msg;
+        msg.setIcon(QMessageBox::Critical);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.setText("Cannot close File.");
+        msg.exec();
+        return false;
+    }
+}
 void File::UpdateFileHash()
 {
-    QByteArray hash = QCryptographicHash::hash(jsonData.toLocal8Bit(), QCryptographicHash::Md5);
-    jsonMD5Hash = hash.toHex().toStdString();
+    QByteArray hash = QCryptographicHash::hash(ReadFile().toLocal8Bit(), QCryptographicHash::Md5);
+    _fileHash = hash.toHex().toStdString();
 }
 void File::WriteFile(QString& data)
 {
-    QFile *file = new QFile(_filePath);
-    if (!file->open(QFile::WriteOnly | QFile::Text))
+    if(_file.isOpen() && _file.isWritable())
     {
-        throw std::exception("Cannot open File.");
+        QTextStream out(&_file);
+        out << data.toUtf8();
     }
-    QTextStream out(file);
-    out << data.toUtf8();
-    file->close();
-    delete file;
+    else
+    {
+        QMessageBox msg;
+        msg.setIcon(QMessageBox::Critical);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.setText("Cannot write to File");
+        msg.exec();
+    }
 }
-void File::SetJsonData(QString jsonString)
+QString File::ReadFile()
 {
-    UpdateFileHash();
-    jsonData = jsonString;
+    if(_file.isOpen() && _file.isReadable())
+    {
+        QTextStream in(&_file);
+        QString data = in.readAll();
+        return data;
+    }else
+    {
+        QMessageBox msg;
+        msg.setIcon(QMessageBox::Critical);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.setText("Cannot read File");
+        msg.exec();
+    }
 }
-QString* File::GetJsonData()
-{
-    return &jsonData;
-}
-void File::ClearJsonData()
-{
-    SetJsonData("");
-}
-void File::Save()
-{
-    WriteFile();
-}
+
+
