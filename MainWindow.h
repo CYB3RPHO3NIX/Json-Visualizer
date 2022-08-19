@@ -17,22 +17,47 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = Q_NULLPTR);
+    QString _JsonData;
     
 private:
     Ui::MainWindowClass ui;
-    Summary* summary;    //this will store the analysis data of the json.
-    JsonWorker worker;      //worker class for handling json related operations.
-    QJsonModel* treeModel;
-    std::string plainTextEditorMD5Hash;
+    Summary* _summary;    //this will store the analysis data of the json.
+    JsonWorker _worker;      //worker class for handling json related operations.
+    QJsonModel* _treeModel;
+    File _currentFile;
+    std::string _JsonDataMD5Hash;
+
+
+    //Flags
+    bool IsFileSaved;
+    bool IsValidJson;
+    bool IsAnyFileOpen;
 
     //recreated functions
     void UpdateJsonSummary();
+    void validateJson();
+    void SaveFile();
+    void SaveAsFile();
+    void SaveChanges();
+    void BrowseFile();
+    void CreateNewFile();
 
+    void OpenFile();
+    void CloseFile();
+
+
+    void PromptSaveChanges();
+    void Reset();
+    void ResetTreeViewPanel();
+    void ResetEditorPanel();
 
     //functions
-    void DrawTreeView(QString& jsonString);
+    void DrawTreeView(QString&);
     void setStatus(const char* statusString);
     void setEditorEnabled(bool enable);
+    void updateJsonDataHash();
+
+
 private slots:
     void on_plainTextEdit_textChanged();
     void on_actionZoom_In_triggered();

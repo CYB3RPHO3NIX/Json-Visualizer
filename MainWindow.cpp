@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _currentFile(parent)
 {
     ui.setupUi(this);
     setEditorEnabled(false);
@@ -14,45 +14,46 @@ void MainWindow::setStatus(const char* statusString)
 //plainTextEdit is the variable that holds the actual Json Data.
 void MainWindow::on_plainTextEdit_textChanged()
 {
-    currentFile->SetJsonData(ui.plainTextEdit->toPlainText());
-    updateEditorTextHash();
+    _JsonData = ui.plainTextEdit->toPlainText();
+    IsFileSaved = false; //change the flag
+
+    updateJsonDataHash();
     validateJson();
-    if(currentFile->isValidJson)
+    if(IsValidJson)
     {
-        DrawTreeView(*currentFile->GetJsonData());
+        DrawTreeView(_JsonData);
         setStatus("Valid Json");
     }else
     {
-        QString empty="";
-        DrawTreeView(empty);
+        ResetTreeViewPanel();
         setStatus("Invalid Json");
     }
 }
 void MainWindow::validateJson()
 {
-    currentFile->isValidJson = worker.IsValid(*currentFile->GetJsonData());
+    IsValidJson = _worker.IsValid(_JsonData);
 }
 void MainWindow::DrawTreeView(QString& jsonString)
 {
-    treeModel = new QJsonModel();
-    ui.treeView->setModel(treeModel);
+    _treeModel = new QJsonModel();
+    ui.treeView->setModel(_treeModel);
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
     if(jsonString != "")
     {
-        worker.GenerateTreeView(jsonString, treeModel);
+        _worker.GenerateTreeView(jsonString, _treeModel);
     }
     QApplication::restoreOverrideCursor();
     ui.treeView->show();
 }
 void MainWindow::UpdateJsonSummary()
 {
-    summary = treeModel->getJsonSummary();
-    QByteArray bytes = ui.plainTextEdit->toPlainText().toUtf8();
+    _summary = _treeModel->getJsonSummary();
+    QByteArray bytes = _JsonData.toUtf8();
     int length = bytes.size();
-    summary->setDataSize(length);
-    summary->setParsingTime(worker.getParsingTime());
-    summary->setMD5_Hash(ui.plainTextEdit->toPlainText());
+    _summary->setDataSize(length);
+    _summary->setParsingTime(_worker.getParsingTime());
+    _summary->setMD5_Hash(_JsonData);
 }
 void MainWindow::on_actionZoom_In_triggered()
 {
@@ -66,10 +67,10 @@ void MainWindow::on_actionZoom_Out_triggered()
 
 void MainWindow::on_actionSummary_triggered()
 {
-    if(currentFile->isValidJson)
+    if(IsValidJson)
     {
-        JsonSummaryDialog dialog;
-        dialog.SetData(summary);
+        Summary* dialog = _treeModel->getJsonSummary();
+        dialog->exec();
     }else
     {
         QMessageBox msg;
@@ -79,198 +80,151 @@ void MainWindow::on_actionSummary_triggered()
         msg.exec();
     }
 }
-void MainWindow::updateEditorTextHash()
+void MainWindow::updateJsonDataHash()
 {
     QByteArray hash = QCryptographicHash::hash(ui.plainTextEdit->toPlainText().toLocal8Bit(), QCryptographicHash::Md5);
-    jsonMD5Hash = hash.toHex().toStdString();
+    _JsonDataMD5Hash = hash.toHex().toStdString();
 }
-bool MainWindow::isAnyFileOpen()
+
+void MainWindow::SaveChanges()
 {
-    if(currentFile != NULL)
+    _currentFile.WriteFile(_JsonData);
+}
+void MainWindow::SaveFile()
+{
+    if(!IsFileSaved)
     {
-        return true;
-    }else
-    {
-        return false;
+        if(_currentFile.IsExists())
+        {
+            SaveChanges();
+            IsFileSaved = true;
+        }else
+        {
+            SaveAsFile();
+        }
     }
 }
-bool MainWindow::isFileSaved()
+void MainWindow::CreateNewFile()
 {
-    if(currentFile->jsonMD5Hash == jsonMD5Hash)
-    {
-        return true;
-    }else
-    {
-        return false;
-    }
+    _currentFile.CreateNewFile();
+
 }
-void MainWindow::DestroyFileInstance()
+void MainWindow::OpenFile()
 {
-    delete currentFile;
-    currentFile = NULL;
-    ResetLayout();
+    IsAnyFileOpen = true;
 }
-void MainWindow::ResetLayout()
+void MainWindow::CloseFile()
 {
-    ui.plainTextEdit->clear();
-    delete treeModel;
-    this->setWindowTitle("JSON Explorer");
+    IsAnyFileOpen = false;
+    _currentFile.CloseFile();
+    Reset();
+    setEditorEnabled(false);
 }
+void MainWindow::SaveAsFile()
+{
+    BrowseFile();
+    SaveFile();
+}
+void MainWindow::BrowseFile()
+{
+    _currentFile.BrowseFile();
+}
+
 void MainWindow::on_txtJsonQuery_textChanged(const QString &queryString)
 {
     if(queryString != "")
     {
         QString *filtered = new QString();
-        *filtered = worker.QueryJson(*currentFile->GetJsonData(), queryString);
+        *filtered = _worker.QueryJson(_JsonData, queryString);
         if(*filtered != "")
         {
             DrawTreeView(*filtered);
             ui.treeView->expandAll();
         }
-    }else
-    {
+    }
+}
 
-    }
-}
-void MainWindow::loadFile(QString filename)
-{
-    if(isAnyFileOpen())
-    {
-        if(currentFile->exists())
-        {
-            if(isFileSaved())
-            {
-                DestroyFileInstance();
-            }else
-            {
-                switch (PromptSaveChanges())
-                {
-                  case QMessageBox::Save:
-                        saveChanges();
-                        DestroyFileInstance();
-                      break;
-                  case QMessageBox::Discard:
-                        DestroyFileInstance();
-                      break;
-                  case QMessageBox::Cancel:
-                      return;
-                  default:
-                      return;
-                }
-            }
-        }else
-        {
-            DestroyFileInstance();
-        }
-    }
-    currentFile = new File();
-    currentFile->setFileName(filename);
-    currentFile->ReadFile();
-    ui.plainTextEdit->setPlainText(*currentFile->GetJsonData());
-    setEditorEnabled(true);
-}
-void MainWindow::BrowseFile()
-{
-    QString filename = QFileDialog::getOpenFileName(this, "Open Json File", QDir::homePath(), "Json Files (*.json)");
-    if(!filename.isEmpty()) loadFile(filename);
-}
-void MainWindow::newFile()
-{
-    if(isAnyFileOpen())
-    {
-        if(currentFile->exists())
-        {
-            if(isFileSaved())
-            {
-                DestroyFileInstance();
-            }else
-            {
-                switch (PromptSaveChanges())
-                {
-                  case QMessageBox::Save:
-                        saveChanges();
-                        DestroyFileInstance();
-                      break;
-                  case QMessageBox::Discard:
-                        DestroyFileInstance();
-                      break;
-                  case QMessageBox::Cancel:
-                      return;
-                  default:
-                      break;
-                }
-            }
-        }else
-        {
-            DestroyFileInstance();
-        }
-    }
-    createNewFile("Untitled.json");
-    setEditorEnabled(true);
-}
-void MainWindow::createNewFile(QString fname)
-{
-    currentFile = new File();
-    currentFile->setFileName(fname);
-}
-void MainWindow::saveFile()
-{
-    if(currentFile->exists())
-    {
-        saveChanges();
-    }else
-    {
-        saveAsFile();
-    }
-}
-int MainWindow::PromptSaveChanges()
+void MainWindow::PromptSaveChanges()
 {
     QMessageBox msgBox;
-    msgBox.setText("The json has been modified.");
+    msgBox.setText("Json data has been modified.");
     msgBox.setInformativeText("Do you want to save your changes?");
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
-    return msgBox.exec();
-}
-void MainWindow::saveAsFile()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Json File"), QDir::homePath(), tr("Json Files (*.json)"));
-    if (fileName.isEmpty())
+    int choice = msgBox.exec();
+    if(choice == QMessageBox::Save)
     {
-        return;
-    }else
+        SaveFile();
+    }else if(choice == QMessageBox::Discard)
     {
-        createNewFile(fileName);
-    }
-    saveChanges();
-}
-void MainWindow::saveChanges()
-{
-    if(!isFileSaved())
-    {
-        currentFile->SetJsonData(ui.plainTextEdit->toPlainText());
-        currentFile->WriteFile();
+        Reset();
     }
 }
-void MainWindow::loadURL(QString url)
+
+void MainWindow::ResetTreeViewPanel()
 {
-    //loadFile();
+    QString empty="";
+    DrawTreeView(empty);
+}
+void MainWindow::ResetEditorPanel()
+{
+    ui.plainTextEdit->clear();
+}
+void MainWindow::Reset()
+{
+    delete _summary;
+    delete _treeModel;
+    _JsonData.clear();
+    _JsonDataMD5Hash.clear();
+    ResetEditorPanel();
+    ResetTreeViewPanel();
 }
 void MainWindow::on_actionBrowse_File_triggered()
 {
-    BrowseFile();
+
 }
 void MainWindow::on_actionNew_File_triggered()
 {
-    newFile();
+    if(IsAnyFileOpen)
+    {
+        //if YES
+        if(IsFileSaved)
+        {
+
+        }else
+        {
+            QMessageBox msgBox;
+            msgBox.setText("Json data has been modified.");
+            msgBox.setInformativeText("Do you want to save your changes?");
+            msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Save);
+            int choice = msgBox.exec();
+            if(choice == QMessageBox::Save)
+            {
+                SaveFile();
+                CloseFile();
+
+            }else if(choice == QMessageBox::Discard)
+            {
+                Reset();
+            }else
+            {
+                return;
+            }
+        }
+    }else
+    {
+        //if NO
+        CreateNewFile();
+    }
 }
 void MainWindow::on_actionSave_As_triggered()
 {
-    saveAsFile();
+
 }
 void MainWindow::on_actionSave_triggered()
 {
-    saveFile();
+
 }
 void MainWindow::setEditorEnabled(bool enable)
 {

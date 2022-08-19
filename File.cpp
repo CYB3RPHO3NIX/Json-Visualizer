@@ -1,7 +1,9 @@
 #include "File.h"
 
-
-
+File::File(QWidget* parent)
+{
+    parentWnd = parent;
+}
 bool File::OpenFile()
 {
     if (!_file.open(QFile::ReadWrite | QFile::Text))
@@ -17,11 +19,15 @@ bool File::OpenFile()
         return true;
     }
 }
+bool File::IsExists()
+{
+    return _file.exists();
+}
 bool File::CloseFile()
 {
     try {
-    _file.close();
-    return true;
+        _file.close();
+        return true;
     }  catch (...) {
         QMessageBox msg;
         msg.setIcon(QMessageBox::Critical);
@@ -31,12 +37,42 @@ bool File::CloseFile()
         return false;
     }
 }
+void File::OpenContainingFolder()
+{
+    if(_file.exists())
+    {
+        QFileInfo f(_file);
+        QString dir = f.absoluteDir().currentPath();
+        QDesktopServices::openUrl(dir);
+    }
+    else
+    {
+        QMessageBox msg;
+        msg.setIcon(QMessageBox::Information);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.setText("File doesn't Exist.");
+        msg.exec();
+    }
+}
+
+void File::CreateNewFile()
+{
+    _file.setFileName("Untitled.json");
+}
+void File::BrowseFile()
+{
+    QString str = QFileDialog::getOpenFileName(parentWnd, "Open Json File", QDir::homePath(), "Json Files (*.json)");
+    if(!str.isNull())
+    {
+        _file.setFileName(str);
+    }
+}
 void File::UpdateFileHash()
 {
     QByteArray hash = QCryptographicHash::hash(ReadFile().toLocal8Bit(), QCryptographicHash::Md5);
     _fileHash = hash.toHex().toStdString();
 }
-void File::WriteFile(QString& data)
+void File::WriteFile(QString data)
 {
     if(_file.isOpen() && _file.isWritable())
     {
@@ -66,7 +102,6 @@ QString File::ReadFile()
         msg.setDefaultButton(QMessageBox::Ok);
         msg.setText("Cannot read File");
         msg.exec();
+        return NULL;
     }
 }
-
-

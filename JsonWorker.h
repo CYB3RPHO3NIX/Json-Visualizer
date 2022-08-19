@@ -12,7 +12,7 @@ namespace jsonpath = jsoncons::jsonpath;
 class JsonWorker
 {
 public:
-	bool IsValid(QString&);
+    bool IsValid(QString&);
 	void GenerateTreeView(QString&, QJsonModel*);
     QString QueryJson(QString& jsonString, QString queryString);
     int getParsingTime();
