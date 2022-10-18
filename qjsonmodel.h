@@ -258,7 +258,7 @@ public:
     QString key() const;
     QVariant value() const;
     QJsonValue::Type type() const;
-    static JsonSummary *summary;
+    static JsonSummary *summary; //appended
     static QJsonTreeItem* load(const QJsonValue& value, QJsonTreeItem* parent = 0);
 
 protected:

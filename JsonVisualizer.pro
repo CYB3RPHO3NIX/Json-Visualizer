@@ -11,9 +11,14 @@ CONFIG += c++11
 
 SOURCES += \
     File.cpp \
-    JsonSummary.cpp \
+    Hash.cpp \
+    Json.cpp \
     JsonWorker.cpp \
-    JsonSummaryDialog.cpp \
+    MD5.cpp \
+    QueryJson.cpp \
+    SHA256.cpp \
+    SHA512.cpp \
+    TreeView.cpp \
     main.cpp \
     MainWindow.cpp \
     qjsonmodel.cpp \
@@ -21,9 +26,18 @@ SOURCES += \
 
 HEADERS += \
     File.h \
-    JsonSummary.h \
+    Hash.h \
+    IHash.h \
+    IJson.h \
+    ITreeView.h \
+    Json.h \
     JsonWorker.h \
+    MD5.h \
     MainWindow.h \
+    QueryJson.h \
+    SHA256.h \
+    SHA512.h \
+    TreeView.h \
     jsoncons/json.hpp \
     jsoncons_ext/jsonpath/expression.hpp \
     jsoncons_ext/jsonpath/flatten.hpp \
@@ -33,13 +47,11 @@ HEADERS += \
     jsoncons_ext/jsonpath/jsonpath_error.hpp \
     jsoncons_ext/jsonpath/jsonpath_expression.hpp \
     jsoncons_ext/jsonpath/jsonpath_selector.hpp \
-    JsonSummaryDialog.h \
     qjsonmodel.h \
     simdjson.h
 
 FORMS += \
-    MainWindow.ui \
-    JsonSummaryDialog.ui
+    MainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -40,13 +40,11 @@ void JsonSummaryDialog::on_pushButton_clicked()
     this->close();
 }
 
-
 void JsonSummaryDialog::on_btnCopyMD5Hash_clicked()
 {
     clipboard->clear(QClipboard::Clipboard);
     clipboard->setText(QString::fromStdString(summary.getMD5_Hash()) , QClipboard::Clipboard);
 }
-
 
 void JsonSummaryDialog::on_btnCopySHA256Hash_clicked()
 {
@@ -54,10 +52,8 @@ void JsonSummaryDialog::on_btnCopySHA256Hash_clicked()
     clipboard->setText(QString::fromStdString(summary.getSHA256_Hash()) , QClipboard::Clipboard);
 }
 
-
 void JsonSummaryDialog::on_btnCopySHA512Hash_clicked()
 {
     clipboard->clear(QClipboard::Clipboard);
     clipboard->setText(QString::fromStdString(summary.getSHA512_Hash()) , QClipboard::Clipboard);
 }
-

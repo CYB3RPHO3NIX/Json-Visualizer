@@ -14,6 +14,5 @@ public:
 	bool IsValid(QString&);
 	void GenerateTreeView(QString&, QJsonModel*);
     QString QueryJson(QString& jsonString, QString queryString);
-private:
 };
 
