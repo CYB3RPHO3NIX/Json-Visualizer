@@ -16,7 +16,17 @@ This repository contains the full application source (Qt project) and bundled JS
 
 ## Screenshots
 
-See `docs/screenshots/` for project screenshots used in the original README.
+Default layout
+
+![Default layout](docs/screenshots/ss01.png)
+
+JMESPath Query / Example
+
+![JMESPath Query](docs/screenshots/ss02.png)
+
+JSON Tree view
+
+![Json Tree view](docs/screenshots/ss03.png)
 
 ## High-level architecture
 
